@@ -25,12 +25,12 @@
   var playback = [];
 
   var voiceSet = {
-    'drum01'   : '../sounds/drum03.mp3',
-    'drum02'  : '../sounds/drum01.mp3',
-    'g'       : '../sounds/Gstrum.mp3',
-    'a'       : '../sounds/Astrum.mp3',
-    'd'       : '../sounds/Dstrum.mp3',
-    'm'      : '../sounds/click.mp3'
+    'drum01'   : 'sounds/drum03.mp3',
+    'drum02'  : 'sounds/drum01.mp3',
+    'g'       : 'sounds/Gstrum.mp3',
+    'a'       : 'sounds/Astrum.mp3',
+    'd'       : 'sounds/Dstrum.mp3',
+    'm'      : 'sounds/click.mp3'
   };
 
   var notes = {
@@ -221,7 +221,7 @@
 
     //  load the sound file in question
     var request = new XMLHttpRequest();
-    request.open('GET', '/sounds/closing-doors.WAV', true);
+    request.open('GET', 'sounds/closing-doors.WAV', true);
     request.responseType = 'arraybuffer';
 
     // when it loads sound file

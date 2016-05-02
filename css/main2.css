@@ -3,7 +3,6 @@
   src: url('../fonts/kittenSwashTrial.ttf')  format('truetype'),
 }
 
-
 body {
   padding: 0;
   margin: 0;
@@ -22,17 +21,11 @@ section {
 
 h1 {
   margin: 0;
-  padding: 20px 20px 20px 20px;
-  /*font-family: 'Kitten Swash', sans-serif;*/
+  padding: 20px 0 20px 20px;
   font-family: 'Helvetica', sans-serif;
   font-weight: bold;
-  /*font-size: 70px;*/
   font-size: 50px;
-  /*text-shadow: 2px 2px 2px #000, 0px 0px 4px #fff;*/
-  /*color: #666BA5;*/
   color: #fff;
-  width: 100%;
-  /*background-color: #C7EEE1;*/
   background-color: #000;
   border-bottom: 5px solid #fff;
 }
@@ -74,13 +67,10 @@ img {
 }
 
 button {
-  /*padding: 10px 15px;*/
   margin-right: 20px;
-  /*background-color: #FF9E77;*/
   background-color: #fff;
   font-size: 14px;
   border: 2px solid #333;
-  /*border-radius: 6px;*/
   border-radius: 30px;
   height: 60px;
   width: 60px;
@@ -98,7 +88,6 @@ button:hover, button:focus {
   position: absolute;
   top: 349px;
   left: 20px;
-  width: 3150px;
 }
 
 .cat {
@@ -122,38 +111,6 @@ button:hover, button:focus {
 
 .svg_seat:nth-child(8) {
   margin-right: 480px;
-}
-
-.seat {
-  position: relative;
-  float: left;
-  height: 40px;
-  width: 40px;
-  margin-right: 3px;
-  margin-left: 3px;
-  transition: height 0.2s, width 0.2s
-}
-
-
-.seat.yellow {
-  background-color: #FFC51B;
-}
-
-.seat.orange {
-  background-color: #FF7302;
-}
-
-.seat.red {
-  background-color: #FF3F3F;
-}
-
-.seat.strum {
-  /*border: 2px solid #9F6BA0;*/
-  border-radius: 23px;
-}
-
-.seat.selected {
-  height: 55px;
 }
 
 #credits {

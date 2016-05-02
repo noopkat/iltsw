@@ -175,7 +175,7 @@
 
   // set up the defaults
   var freestyle = false,
-      context = new webkitAudioContext(),
+      context = new AudioContext(),
       source, sequencer;
 
   var o = context.createOscillator();

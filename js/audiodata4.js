@@ -231,7 +231,7 @@
       audioCtx.decodeAudioData(audioData, function(buffer) {
         var data = buffer.getChannelData(0);
         var l = data.length;
-        console.log('data length:', l);
+        // console.log('data length:', l);
         var seatContainer = document.getElementById('seats');
         var catContainer = document.getElementById('cats');
 
@@ -347,7 +347,7 @@
         // #FF7302 - orange r255 g115 b2
         // #FFC51B - yellow r255 g192 b27
 
-        console.log('done gud:', l, playback);
+        // console.log('done gud:', l, playback);
       },
 
       function(e) {

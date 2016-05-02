@@ -5,12 +5,16 @@
   <link rel="stylesheet" href="/css/main2.css"/>
 </head>
 <body>
-  <p><button id="stop" style="padding: 10px; background-color: #FF9E77; font-size: 14px; border: 2px solid #A0624B; border-radius: 6px; cursor: pointer;">oh dear god stop</button></p>
+  <h1>Sounds of the Subway</h1>
+  <section id="top">
+    <p><button id="start">start</button><button id="stop">stop</button></p>
+  </section>
   <div id="train">
     <!-- <img src="img/train_16-beat.svg"/> -->
-    <img src="img/train_background.svg"/>
+    <img id="train_background" src="img/train_background.svg"/>
     <div id="seats"></div>
     <div id="cats"></div>
+    <div class="arrow-up" id="marker"></div>
   </div>
   <script src="/js/abbeyLoad.js"></script>
   <script src="/js/audioData4.js"></script>

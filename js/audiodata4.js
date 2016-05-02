@@ -1,4 +1,21 @@
 (function() {
+  var train = document.getElementById('train');
+  var trainWidth = 3123;
+  var ratio = 1;
+  var soundBuffers;
+  var isPlaying = false;
+
+  function resizeTrain() {
+    ratio = window.innerWidth / trainWidth;
+    train.style.zoom = ratio;
+  }
+
+  resizeTrain();
+
+  window.addEventListener('resize', function(event){
+    resizeTrain();
+  });
+
   var audioCtx = new AudioContext();
   var gainNode = audioCtx.createGain();
   gainNode.gain.value = 1;
@@ -154,36 +171,48 @@
     'Bb7': 3729.31,
     'B7': 3951.07,
     'C8': 4186.01
-};
+  };
 
   // set up the defaults
-  var freestyle    = false,
-      context      = new webkitAudioContext(),
-      source,
-      sequencer;
+  var freestyle = false,
+      context = new webkitAudioContext(),
+      source, sequencer;
 
-      var o = context.createOscillator();
-      //o.type = e.currentTarget.id;
-      o.frequency.value = 10;
-      g = context.createGain();
-      g.gain.value = 0.5;
-      o.start(0);
+  var o = context.createOscillator();
+  o.frequency.value = 10;
+  g = context.createGain();
+  g.gain.value = 0.5;
+  o.start(0);
+  o.connect(context.destination);
+
+  var bar = 16;                 //  beats in the bar
+  var tempo = 120;              // bpm
+  var beat = 60 / tempo * 1000; // beat duration
+  var curBeat = 0;
+
+  var stopButton = document.getElementById('stop');
+  var startButton = document.getElementById('start');
+  var marker = document.getElementById('marker');
+
+  stopButton.addEventListener('click', function() {
+    if (isPlaying) {
+      clearInterval(sequencer);
+      o.disconnect();
+      isPlaying = false;
+    }
+  });
+
+  startButton.addEventListener('click', function() {
+    if (!isPlaying) {
       o.connect(context.destination);
-
-  var bar = 16,                 //  beats in the bar
-      tempo = 120,              // bpm
-      beat = 60 / tempo * 1000, // beat duration
-      curBeat = 0;
-
-  var button = document.getElementById('stop');
-
-  button.addEventListener('click', function() {
-    clearInterval(sequencer);
-    o.stop(0);
+      setupSounds(soundBuffers);
+      isPlaying = true;
+    }
   });
 
   // load all of the sounds and then when ready kick off the sounds setup and bindings
   var assets = new AbbeyLoad([voiceSet], function (buffers) {
+    soundBuffers = buffers;
     setupSounds(buffers);
   });
 
@@ -302,9 +331,9 @@
               cat = document.createElement('img');
               cat.src = 'img/cat.svg';
               cat.className = 'cat';
+              cat.id = 'cat_'+ block;
               cat.style.left = seat.offsetLeft - (seatWidth / 1.4)  + 'px';
-              cat.style.top = '-80px';
-              console.log(seat.offsetLeft, window.getComputedStyle(seat).width);
+              cat.style.top = '-82px';
               catContainer.appendChild(cat);
             }
 
@@ -347,20 +376,36 @@
 
   function highlightSeat(n) {
     var seat = document.getElementById('seat_' + n);
-    var prevSeat = document.getElementById('seat_' + (n === 0 ? bar - 1 : n - 1));
-    prevSeat.className = prevSeat.className.replace(/ selected/, '');
-    seat.className += ' selected';
+    var seatContainer = document.getElementById('seats');
+    var seatWidth = parseInt(window.getComputedStyle(seat).width.replace(/px/, ''), 10);
+    var seatHeight = parseInt(window.getComputedStyle(seat).height.replace(/px/, ''), 10);
+    var catHeight;
+
+    marker.style.top = seatContainer.offsetTop + seatHeight + 15 + 'px';
+    marker.style.left = seat.offsetLeft + (seatWidth / 2) - (35 / 2) + 'px';
+    marker.style.display = 'block';
+
+    if (seat.className.indexOf('strum') !== -1) {
+      var cat = document.getElementById('cat_' + n);
+      catHeight = parseInt(window.getComputedStyle(cat).height.replace(/px/, ''), 10);
+      cat.style.height = catHeight + 8 + 'px';
+      cat.style.transform = ('rotate(2deg)');
+      setTimeout(function() {
+        cat.style.height = catHeight + 'px';
+        cat.style.transform = ('rotate(0deg)');
+      }, beat);
+    }
   }
 
 
   // set up the shoes
   function setupSounds(buffers) {
-
     // Loop every n milliseconds, executing a task each time
     // the most primitive form of a loop sequencer as a simple example
     sequencer = setInterval(function() {
+      isPlaying = true;
       // replace this with a new highlighter function
-      //highlightSeat(curBeat);
+      highlightSeat(curBeat);
 
       playback.forEach(function(note){
 

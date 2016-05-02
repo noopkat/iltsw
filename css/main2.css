@@ -10,6 +10,7 @@ body {
   /*background-color: #E5D9EA;*/
   /*background-color: #333;*/
   background-color: #dedede;
+  font-family: 'Helvetica', sans-serif;
 }
 
 section {
@@ -23,7 +24,7 @@ h1 {
   margin: 0;
   padding: 20px 20px 20px 20px;
   /*font-family: 'Kitten Swash', sans-serif;*/
-  font-family: 'Helvetica', 'Courier New', sans-serif;
+  font-family: 'Helvetica', sans-serif;
   font-weight: bold;
   /*font-size: 70px;*/
   font-size: 50px;
@@ -154,3 +155,21 @@ button:hover, button:focus {
 .seat.selected {
   height: 55px;
 }
+
+#credits {
+  font-size: 12px;
+  padding-left: 20px;
+  line-height: 1.6em;
+}
+
+#credits a {
+  color: #454EFF;
+  text-decoration: none;
+}
+
+#credits a:hover, #credits a:focus {
+  color: #454EFF;
+  text-decoration: underline;
+}
+
+

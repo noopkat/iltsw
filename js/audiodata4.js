@@ -351,7 +351,7 @@
           }
         }
         // load all of the sounds and then when ready kick off the sounds setup and bindings
-        var assets = new AbbeyLoad([voiceSet.mark], function (buffers) {
+        var assets = new AbbeyLoad([voiceSet.regular], function (buffers) {
           soundBuffers = buffers;
           setupSounds(buffers);
 

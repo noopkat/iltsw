@@ -54,7 +54,7 @@
 
     //  load the sound file in question
     var request = new XMLHttpRequest();
-    request.open('GET', '/sounds/closing-doors.WAV', true);
+    request.open('GET', 'sounds/closing-doors.WAV', true);
     request.responseType = 'arraybuffer';
 
     // when it loads sound file

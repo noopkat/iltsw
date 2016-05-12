@@ -25,12 +25,22 @@
   var playback = [];
 
   var voiceSet = {
-    'drum01'   : 'sounds/drum03.mp3',
-    'drum02'  : 'sounds/drum01.mp3',
-    'g'       : 'sounds/Gstrum.mp3',
-    'a'       : 'sounds/Astrum.mp3',
-    'd'       : 'sounds/Dstrum.mp3',
-    'm'      : 'sounds/click.mp3'
+    'regular': {
+      'drum01'   : 'sounds/drum03.mp3',
+      'drum02'  : 'sounds/drum01.mp3',
+      'g'       : 'sounds/Gstrum.mp3',
+      'a'       : 'sounds/Astrum.mp3',
+      'd'       : 'sounds/Dstrum.mp3',
+      'm'       : 'sounds/click.mp3'
+    },
+    'mark': {
+      'drum01'   : 'sounds/mark/Boop.wav',
+      'drum02'  : 'sounds/mark/brdd.wav',
+      'g'       : 'sounds/mark/shew.wav',
+      'a'       : 'sounds/mark/IntroMusic.wav',
+      'd'       : 'sounds/mark/shew.wav',
+      'm'      : 'sounds/click.mp3'
+    }
   };
 
   var notes = {
@@ -195,7 +205,9 @@
   var marker = document.getElementById('marker');
 
   stopButton.addEventListener('click', function() {
+    console.log('clicked!');
     if (isPlaying) {
+      console.log('isplaying')
       clearInterval(sequencer);
       o.disconnect();
       isPlaying = false;
@@ -204,16 +216,11 @@
 
   startButton.addEventListener('click', function() {
     if (!isPlaying) {
+      console.log('isp not laying')
       o.connect(context.destination);
       setupSounds(soundBuffers);
       isPlaying = true;
     }
-  });
-
-  // load all of the sounds and then when ready kick off the sounds setup and bindings
-  var assets = new AbbeyLoad([voiceSet], function (buffers) {
-    soundBuffers = buffers;
-    setupSounds(buffers);
   });
 
   
@@ -231,7 +238,7 @@
       audioCtx.decodeAudioData(audioData, function(buffer) {
         var data = buffer.getChannelData(0);
         var l = data.length;
-        // console.log('data length:', l);
+        console.log('data length:', l);
         var seatContainer = document.getElementById('seats');
         var catContainer = document.getElementById('cats');
 
@@ -343,10 +350,21 @@
             average = 0;
           }
         }
+        // load all of the sounds and then when ready kick off the sounds setup and bindings
+        var assets = new AbbeyLoad([voiceSet.mark], function (buffers) {
+          soundBuffers = buffers;
+          setupSounds(buffers);
 
-        // #FF7302 - orange r255 g115 b2
-        // #FFC51B - yellow r255 g192 b27
+          // immediately stop it for the slideshow
+          var click = new MouseEvent('click', {
+            'view': window,
+            'bubbles': true,
+            'cancelable': true
+          });
 
+            isPlaying = true;
+            stopButton.dispatchEvent(click);
+        });
         // console.log('done gud:', l, playback);
       },
 
@@ -397,8 +415,6 @@
     }
   }
 
-
-  // set up the shoes
   function setupSounds(buffers) {
     // Loop every n milliseconds, executing a task each time
     // the most primitive form of a loop sequencer as a simple example
